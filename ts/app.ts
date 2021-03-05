@@ -59,13 +59,16 @@ dataForm.maximo.addEventListener('change',()=>{
 })
 
 dataForm.puertas.addEventListener('change',()=>{
-    objDataSelect.puertas = dataForm.puertas.value;
+    objDataSelect.puertas = Number(dataForm.puertas.value);
+    filterAuto();
 })
 dataForm.transmision.addEventListener('change',()=>{
     objDataSelect.transmision = dataForm.transmision.value;
+    filterAuto();
 })
 dataForm.color.addEventListener('change',()=>{
     objDataSelect.color = dataForm.color.value;
+    filterAuto();
 })
 
 const uploadAuto = (autos):void => {
@@ -73,8 +76,7 @@ const uploadAuto = (autos):void => {
         const uploadHMTL:any = document.createElement('p')
         const { marca, modelo, year, precio, puertas, color, transmision } = autos
         uploadHMTL.textContent = `
-            Marca ${marca}-${modelo} - Año ${year} - ${puertas} Puertas - Transmisión ${transmision} - Precio: ${precio} - Color: ${color} 
-        
+            Marca ${marca} Modelo ${modelo} - Año ${year} - ${puertas} Puertas - Transmisión: ${transmision} - Precio: ${precio} - Color: ${color} 
         `;
         dataForm.resultado.appendChild(uploadHMTL);
     })
@@ -96,7 +98,7 @@ const removeHTML = ():void =>{
 
 const filterAuto = ():void =>{
     removeHTML()
-    const result:auto_type[] = autos.filter(filterMarca).filter(filterYear).filter(filterMax).filter(filterMin)
+    const result:auto_type[] = autos.filter(filterMarca).filter(filterYear).filter(filterMax).filter(filterMin).filter(filterPuertas).filter(filterTransmision).filter(filterColor)
     uploadAuto(result)
 }
 
@@ -128,6 +130,28 @@ const filterMax = (auto) => {
     const {maximo} = objDataSelect
     if(maximo){
         return auto.precio <= maximo;
+    }
+    return auto;
+}
+const filterPuertas = (auto) => {
+    const { puertas } = objDataSelect;
+    if (puertas) {
+        return auto.puertas === puertas;
+    }
+    return auto;
+}
+const filterTransmision = (auto) => {
+    const { transmision } = objDataSelect;
+    if (transmision) {
+        return auto.transmision === transmision;
+    }
+    return auto;
+}
+
+const filterColor = (auto) => {
+    const { color } = objDataSelect;
+    if (color) {
+        return auto.color === color;
     }
     return auto;
 }
