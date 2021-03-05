@@ -79,7 +79,18 @@ const removeHTML = () => {
 const filterAuto = () => {
     removeHTML();
     const result = autos.filter(filterMarca).filter(filterYear).filter(filterMax).filter(filterMin).filter(filterPuertas).filter(filterTransmision).filter(filterColor);
-    uploadAuto(result);
+    if (result.length) {
+        uploadAuto(result);
+    }
+    else {
+        mostrarError();
+    }
+};
+const mostrarError = () => {
+    const error = document.createElement('div');
+    error.classList.add('alerta', 'error');
+    error.textContent = 'No hay Resultados';
+    dataForm.resultado.appendChild(error);
 };
 const filterMarca = (auto) => {
     const { marca } = objDataSelect;

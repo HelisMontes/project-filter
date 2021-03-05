@@ -99,7 +99,18 @@ const removeHTML = ():void =>{
 const filterAuto = ():void =>{
     removeHTML()
     const result:auto_type[] = autos.filter(filterMarca).filter(filterYear).filter(filterMax).filter(filterMin).filter(filterPuertas).filter(filterTransmision).filter(filterColor)
-    uploadAuto(result)
+        if (result) {
+            uploadAuto(result)
+        } else {
+            mostrarError();     
+        }
+}
+
+const mostrarError = () => {
+    const error:any = document.createElement('div');
+    error.classList.add('alerta', 'error');
+    error.textContent = 'No hay Resultados';
+    dataForm.resultado.appendChild(error);
 }
 
 const filterMarca = (auto) => {
