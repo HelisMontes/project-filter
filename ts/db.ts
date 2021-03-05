@@ -1,4 +1,14 @@
-export const autos = [
+export interface auto_type  {
+	marca: string
+	modelo: string
+	year: number
+	precio: number
+	puertas: number
+	color: string
+	transmision: string
+}
+
+export const autos:auto_type[] = [
 	{
 		marca: 'BMW',
 		modelo: 'Serie 3',
